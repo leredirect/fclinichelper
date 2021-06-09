@@ -40,12 +40,12 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.zoom_in),
+              icon: Icon(Icons.search),
               label: "Узи",
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.calendar_today_outlined),
-              label: "Узи",
+              icon: Icon(Icons.cached),
+              label: "Цикл",
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.attach_money),
