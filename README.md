@@ -1,2 +1,2 @@
 # fclinichelper
-Application for Ltd.
+Application for FClinic Ltd.
