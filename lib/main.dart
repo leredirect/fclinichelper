@@ -1,3 +1,4 @@
+import 'package:fclinick_helper/screens/uzi_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _elements = [
-      Text("1"),
+      UziScreen(),
       Text("2"),
       Text("3"),
     ];

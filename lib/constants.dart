@@ -1,0 +1,1 @@
+const double ARINA_CONSTANT = 0.52;
