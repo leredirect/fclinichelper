@@ -37,7 +37,7 @@ class _CycleScreenState extends State<CycleScreen> {
             child: InkWell(
                 onTap: () {
                   DateTime now = DateTime.now();
-                  var lastDate = now.add(const Duration(days: 60));
+                  var lastDate = now.add(const Duration(days: 0));
                   var firstDate = now.subtract(const Duration(days: 5));
                   showDatePicker(
                     context: context,
