@@ -15,26 +15,29 @@ class PriceListServices extends StatefulWidget {
 class _PriceListServicesState extends State<PriceListServices> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: baseServices.baseList.length,
-        itemBuilder: (_, i) {
-          return CheckboxListTile(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(baseServices.baseList[i].name),
-                Text("${baseServices.baseList[i].price}"),
-              ],
-            ),
-            value: baseServices.baseList[i].isActive,
-            onChanged: (bool value) {
-              setState(() {
-                baseServices.baseList[i].isActive = value;
-              });
-              widget.updateScreen();
-            },
-          );
-        });
+    return Container(
+      margin: EdgeInsets.only(bottom: 60),
+      child: ListView.builder(
+          itemCount: baseServices.baseList.length,
+          itemBuilder: (_, i) {
+            return CheckboxListTile(
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(baseServices.baseList[i].name),
+                  Text("${baseServices.baseList[i].price}"),
+                ],
+              ),
+              value: baseServices.baseList[i].isActive,
+              onChanged: (bool value) {
+                setState(() {
+                  baseServices.baseList[i].isActive = value;
+                });
+                widget.updateScreen();
+              },
+            );
+          }),
+    );
   }
 
   @override
