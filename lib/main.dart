@@ -1,3 +1,4 @@
+import 'package:fclinick_helper/screens/cycle_screen.dart';
 import 'package:fclinick_helper/screens/uzi_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     List<Widget> _elements = [
       UziScreen(),
-      Text("2"),
+      CycleScreen(),
       Text("3"),
     ];
 
@@ -28,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.purple),
+      theme: ThemeData(primarySwatch: Colors.purple),
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
