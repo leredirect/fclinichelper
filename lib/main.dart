@@ -1,4 +1,5 @@
 import 'package:fclinick_helper/screens/cycle_screen.dart';
+import 'package:fclinick_helper/screens/pricelist_screen.dart';
 import 'package:fclinick_helper/screens/uzi_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> _elements = [
       UziScreen(),
       CycleScreen(),
-      Text("3"),
+      PriceList(),
     ];
 
     void changeTab(int index) {
