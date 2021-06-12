@@ -6,6 +6,4 @@ class BaseList {
   bool insurance;
 
   BaseList(this.name, this.baseList, this.insurance);
-
-
 }
