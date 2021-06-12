@@ -1,7 +1,8 @@
+import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/models/baseElement.dart';
 import 'package:fclinick_helper/models/baseList.dart';
 
-const double ARINA_CONSTANT = 0.52;
+final Decimal ARINA_CONSTANT = Decimal.parse("0.52");
 const double JEJ = 7;
 //text
 

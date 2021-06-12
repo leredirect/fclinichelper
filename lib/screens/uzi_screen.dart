@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,15 +18,15 @@ class _UziScreenState extends State<UziScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double calc() {
+    Decimal calc() {
       try {
-        double a = double.parse(_aController.text);
-        double b = double.parse(_bController.text);
-        double c = double.parse(_cController.text);
-        double res = (a * b * c) * ARINA_CONSTANT;
+        Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
+        Decimal b = Decimal.parse(_bController.text.replaceAll(",", "."));
+        Decimal c = Decimal.parse(_cController.text.replaceAll(",", "."));
+        Decimal res = (a * b * c) * ARINA_CONSTANT;
         return res;
       } on Exception catch (e) {
-        return 0;
+        return Decimal.zero;
       }
     }
 
