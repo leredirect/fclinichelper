@@ -57,12 +57,29 @@ class _PriceListState extends State<PriceList> {
                   PriceListAnalysis(updateScreen: updateScreen),
                 ],
               ),
-              Spacer(),
-              Container(
-                alignment: Alignment.bottomCenter,
-                margin: EdgeInsets.only(bottom: 20),
-                child: Text("Результат: ${priceListCalc()}",
-                    style: TextStyle(fontSize: 25)),
+              Column(
+                children: [
+                  Spacer(),
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                spreadRadius: 5,
+                                blurRadius: 10)
+                          ]),
+                      child: Text(
+                        "Результат: ${priceListCalc()}",
+                        style: TextStyle(fontSize: 25),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
