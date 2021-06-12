@@ -16,25 +16,29 @@ class _PriceListServicesState extends State<PriceListServices> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 60),
+      padding: EdgeInsets.only(bottom: 60,),
       child: ListView.builder(
           itemCount: baseServices.baseList.length,
           itemBuilder: (_, i) {
-            return CheckboxListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(baseServices.baseList[i].name),
-                  Text("${baseServices.baseList[i].price}"),
-                ],
+            return Container(
+              padding: i == 0? EdgeInsets.only(top:10):null,
+              child: CheckboxListTile(
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(baseServices.baseList[i].name),
+                    SizedBox(height: 5,),
+                    Text("${baseServices.baseList[i].price}", style: TextStyle(color: Colors.grey),),
+                  ],
+                ),
+                value: baseServices.baseList[i].isActive,
+                onChanged: (bool value) {
+                  setState(() {
+                    baseServices.baseList[i].isActive = value;
+                  });
+                  widget.updateScreen();
+                },
               ),
-              value: baseServices.baseList[i].isActive,
-              onChanged: (bool value) {
-                setState(() {
-                  baseServices.baseList[i].isActive = value;
-                });
-                widget.updateScreen();
-              },
             );
           }),
     );

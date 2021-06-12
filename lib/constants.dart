@@ -60,10 +60,10 @@ List<BaseElement> servicesBase = [
 ];
 
 List<BaseElement> analysisBase = [
-  baseElement4,
-  baseElement5,
-  baseElement6,
-  baseElement7
+  baseElement22,
+  baseElement23,
+  baseElement24,
+  baseElement25,
 ];
 
 BaseList baseServices = new BaseList("Услуги", servicesBase, false);

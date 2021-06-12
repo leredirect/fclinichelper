@@ -1,21 +1,18 @@
-
 import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SVDScreen extends StatefulWidget {
+class OmletteVolumeScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _SVDScreenState();
+  State<StatefulWidget> createState() => _OmletteVolumeScreenState();
 }
 
-class _SVDScreenState extends State<SVDScreen> {
+class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
   final _aController = TextEditingController();
   final _bController = TextEditingController();
-  final _cController = TextEditingController();
   FocusNode aNode = FocusNode();
   FocusNode bNode = FocusNode();
-  FocusNode cNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +20,7 @@ class _SVDScreenState extends State<SVDScreen> {
       try {
         Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
         Decimal b = Decimal.parse(_bController.text.replaceAll(",", "."));
-        Decimal c = Decimal.parse(_cController.text.replaceAll(",", "."));
-        Decimal res = (a * b * c) * ARINA_CONSTANT;
+        Decimal res = (a * b) / JAICHKO;
         return res;
       } on Exception catch (e) {
         return Decimal.zero;
@@ -33,79 +29,78 @@ class _SVDScreenState extends State<SVDScreen> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: "x"
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: TextField(
+                          decoration: InputDecoration(
+                            hintText: "мм"
+                          ),
+                          focusNode: aNode,
+                          controller: _aController,
+                          textInputAction: TextInputAction.next,
+                          onSubmitted: (value) =>
+                              FocusScope.of(context).requestFocus(bNode),
+                          onChanged: (value) {
+                            setState(() {});
+                          },
                         ),
-                        focusNode: aNode,
-                        controller: _aController,
-                        textInputAction: TextInputAction.next,
-                        onSubmitted: (value) =>
-                            FocusScope.of(context).requestFocus(bNode),
-                        onChanged: (value) {
-                          setState(() {});
-                        },
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: "y"
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: TextField(
+                          decoration: InputDecoration(
+                              hintText: "мм"
+                          ),
+                          focusNode: bNode,
+                          controller: _bController,
+                          textInputAction: TextInputAction.done,
+                          onSubmitted: (value) =>
+                              FocusScope.of(context).unfocus(),
+                          onChanged: (value) {
+                            setState(() {});
+                          },
                         ),
-                        focusNode: bNode,
-                        controller: _bController,
-                        textInputAction: TextInputAction.next,
-                        onSubmitted: (value) =>
-                            FocusScope.of(context).requestFocus(cNode),
-                        onChanged: (value) {
-                          setState(() {});
-                        },
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: TextField(
-                        decoration: InputDecoration(
-                            hintText: "z"
-                        ),
-                        focusNode: cNode,
-                        controller: _cController,
-                        textInputAction: TextInputAction.done,
-                        onSubmitted: (value) =>
-                            FocusScope.of(context).unfocus(),
-                        onChanged: (value) {
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Container(
                     padding: EdgeInsets.all(20),
                     child: Text(
-                      "x0,52",
+                      "÷$JAICHKO",
                       style: TextStyle(fontSize: 30),
                     ))
               ],
             ),
             Spacer(),
-            Container(
-                margin: EdgeInsets.only(bottom: 20),
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 5,
+                          blurRadius: 10)
+                    ]),
                 child: Text(
                   "Результат: ${calc()}",
                   style: TextStyle(fontSize: 25),
-                ))
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -117,7 +112,6 @@ class _SVDScreenState extends State<SVDScreen> {
     super.dispose();
     _aController.dispose();
     _bController.dispose();
-    _cController.dispose();
   }
 
   @override
@@ -125,3 +119,6 @@ class _SVDScreenState extends State<SVDScreen> {
     super.initState();
   }
 }
+
+
+

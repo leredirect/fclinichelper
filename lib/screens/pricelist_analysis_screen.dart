@@ -19,13 +19,15 @@ class _PriceListAnalysisState extends State<PriceListAnalysis> {
         itemCount: baseAnalysis.baseList.length,
         itemBuilder: (_, i) {
           return Container(
+            padding: i == 0? EdgeInsets.only(top:10, bottom: 10):null,
             color: i == 0 ? Colors.grey[200] : Colors.white,
             child: CheckboxListTile(
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(baseAnalysis.baseList[i].name),
-                  Text("${baseAnalysis.baseList[i].price}"),
+                  SizedBox(height: 5,),
+                  Text("${baseAnalysis.baseList[i].price}", style: TextStyle(color: Colors.grey),),
                 ],
               ),
               value: baseAnalysis.baseList[i].isActive,

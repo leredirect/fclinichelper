@@ -11,14 +11,6 @@ class _CycleScreenState extends State<CycleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color pickedDateColor(DateTime pickedDate) {
-      if (pickedDate == null) {
-        return Colors.white;
-      } else {
-        return Colors.black;
-      }
-    }
-
     int pickedDateCalc(DateTime pickedDate) {
       if (pickedDate != null) {
         DateTimeRange range =
@@ -76,13 +68,23 @@ class _CycleScreenState extends State<CycleScreen> {
                 )),
           ),
           Spacer(),
-          Container(
-              margin: EdgeInsets.only(bottom: 20),
-              child: Text(
+          Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+              decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    spreadRadius: 5,
+                    blurRadius: 10)
+              ]),
+              child: Text(pickedDate == null? "Выберите дату" :
                 "День цикла: ${pickedDateCalc(pickedDate)}",
-                style:
-                    TextStyle(color: pickedDateColor(pickedDate), fontSize: 25),
-              ))
+                style: TextStyle(fontSize: 25, color: pickedDate == null? Colors.grey : Colors.black),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
         ],
       ),
     );
