@@ -1,13 +1,14 @@
 import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/models/baseElement.dart';
 import 'package:fclinick_helper/models/baseList.dart';
+
 final Decimal JAICHKO = Decimal.parse("2");
 final Decimal ARINA_CONSTANT = Decimal.parse("0.52");
 const double JEJ = 7;
 //text
 
-BaseElement baseElement0 = new BaseElement(0, "Приём акушер-гинеколога",45.00, false);
-BaseElement baseElement1 = new BaseElement(1, "Приём акушер-гинеколога(детский)",  45.00, false);
+BaseElement baseElement0 = new BaseElement(0, "Приём акушер-гинеколога", 45.00, false);
+BaseElement baseElement1 = new BaseElement(1, "Приём акушер-гинеколога(детский)", 45.00, false);
 BaseElement baseElement2 = new BaseElement(2, "Приём по бесплодию", 150.00, false);
 BaseElement baseElement3 = new BaseElement(3, "Приём беременной", 90.00, false);
 BaseElement baseElement4 = new BaseElement(4, "УЗИ гинекологическое", 36.00, false);
@@ -30,9 +31,20 @@ BaseElement baseElement20 = new BaseElement(20, "Slivki #2 (Приём + кон�
 BaseElement baseElement21 = new BaseElement(21, "Slivki #3 (Приём + консультация+ УЗИ ОМТ+ кольпоскопия)", 65.00, false);
 
 BaseElement baseElement22 = new BaseElement(0, "БЕЗ СТРАХОВКИ", JEJ, false);
-BaseElement baseElement23 = new BaseElement(1, "Анализ 2", 30, false);
-BaseElement baseElement24 = new BaseElement(2, "Анализ 3", 35, false);
-BaseElement baseElement25 = new BaseElement(3, "Анализ 4", 40, false);
+BaseElement baseElement23 = new BaseElement(1, "Информационные услуги", 7.0, false);
+BaseElement baseElement24 = new BaseElement(2, "Соскоб цервикального канала", 44.73, false);
+BaseElement baseElement25 = new BaseElement(3, "Мазок на флору", 8.17, false);
+BaseElement baseElement26 = new BaseElement(1, "Онкоцитология гинекологич. мазков", 11.89, false);
+BaseElement baseElement27 = new BaseElement(2, "Онкоцитология пунктам молочной железы", 12.37, false);
+BaseElement baseElement28 = new BaseElement(3, "Онкоцитология в/м спирали", 9.94, false);
+BaseElement baseElement29 = new BaseElement(1, "ПАП-тест на основе жидкостной цитологии", 44.28, false);
+BaseElement baseElement30 = new BaseElement(2, "Фемофлор-скрин", 71.82, false);
+BaseElement baseElement31 = new BaseElement(3, "Фемофлор-скрин 16", 99.18, false);
+BaseElement baseElement32 = new BaseElement(1, "Маркеры пролиферации  p16 и Ki-67", 119.39, false);
+BaseElement baseElement33 = new BaseElement(2, "Пап-тест на основе жидкостной цитологии ПЦР, ВПЧ,ВКР", 98.26, false);
+BaseElement baseElement34 = new BaseElement(3, "Пап-тест на основе жидкостной цитологии ПЦР, ВПЧ,ВКР с маркерами p16 и Ki-67", 164.21, false);
+BaseElement baseElement35 = new BaseElement(1, "Забор ПЦР", 3.70, false);
+BaseElement baseElement36 = new BaseElement(2, "ПЦР. Вирус простого герпеса 1/2 типа", 14.85, false);
 
 List<BaseElement> servicesBase = [
   baseElement0,
@@ -64,6 +76,17 @@ List<BaseElement> analysisBase = [
   baseElement23,
   baseElement24,
   baseElement25,
+  baseElement26,
+  baseElement27,
+  baseElement28,
+  baseElement29,
+  baseElement30,
+  baseElement31,
+  baseElement32,
+  baseElement33,
+  baseElement34,
+  baseElement35,
+  baseElement36,
 ];
 
 BaseList baseServices = new BaseList("Услуги", servicesBase, false);

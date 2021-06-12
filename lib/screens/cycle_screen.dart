@@ -78,9 +78,13 @@ class _CycleScreenState extends State<CycleScreen> {
                     spreadRadius: 5,
                     blurRadius: 10)
               ]),
-              child: Text(pickedDate == null? "Выберите дату" :
-                "День цикла: ${pickedDateCalc(pickedDate)}",
-                style: TextStyle(fontSize: 25, color: pickedDate == null? Colors.grey : Colors.black),
+              child: Text(
+                pickedDate == null
+                    ? "Выберите дату"
+                    : "День цикла: ${pickedDateCalc(pickedDate)}",
+                style: TextStyle(
+                    fontSize: 25,
+                    color: pickedDate == null ? Colors.grey : Colors.black),
                 textAlign: TextAlign.center,
               ),
             ),

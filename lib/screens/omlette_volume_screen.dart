@@ -41,9 +41,7 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         child: TextField(
-                          decoration: InputDecoration(
-                            hintText: "мм"
-                          ),
+                          decoration: InputDecoration(hintText: "мм"),
                           focusNode: aNode,
                           controller: _aController,
                           textInputAction: TextInputAction.next,
@@ -57,9 +55,7 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.5,
                         child: TextField(
-                          decoration: InputDecoration(
-                              hintText: "мм"
-                          ),
+                          decoration: InputDecoration(hintText: "мм"),
                           focusNode: bNode,
                           controller: _bController,
                           textInputAction: TextInputAction.done,
@@ -86,14 +82,12 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
+                decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      spreadRadius: 5,
+                      blurRadius: 10)
+                ]),
                 child: Text(
                   "Результат: ${calc()}",
                   style: TextStyle(fontSize: 25),
@@ -119,6 +113,3 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
     super.initState();
   }
 }
-
-
-
