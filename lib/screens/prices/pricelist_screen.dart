@@ -1,9 +1,10 @@
 import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/constants.dart';
-import 'package:fclinick_helper/screens/pricelist_analysis_screen.dart';
-import 'package:fclinick_helper/screens/pricelist_services_screen.dart';
+import 'package:fclinick_helper/screens/prices/pricelist_analysis_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'pricelist_services_screen.dart';
 
 class PriceList extends StatefulWidget {
   @override

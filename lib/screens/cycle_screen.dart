@@ -26,46 +26,49 @@ class _CycleScreenState extends State<CycleScreen> {
       body: Column(
         children: [
           Center(
-            child: InkWell(
-                onTap: () {
-                  DateTime now = DateTime.now();
-                  var lastDate = now.add(const Duration(days: 0));
-                  var firstDate = now.subtract(const Duration(days: 5));
-                  showDatePicker(
-                    context: context,
-                    initialDate: DateTime.now(),
-                    firstDate: DateTime(2020),
-                    lastDate: lastDate,
-                  ).then((value) => pickedDate = value).then(
-                    (value) {
-                      setState(() {});
-                    },
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.35),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.4),
-                        spreadRadius: 1,
-                        blurRadius: 7,
-                        offset: Offset(0, 3),
-                      )
-                    ],
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.purple,
-                  ),
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: 40,
-                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                  child: Center(
-                      child: Text(
-                    "Выбрать день",
-                    style: TextStyle(color: Colors.white),
+            child: Container(
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.35),
+              child: TextButton(
+                  onPressed: () {
+                    DateTime now = DateTime.now();
+                    var lastDate = now.add(const Duration(days: 0));
+                    var firstDate = now.subtract(const Duration(days: 5));
+                    showDatePicker(
+                      locale: Locale("ru", "RU"),
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime(2020),
+                      lastDate: lastDate,
+                    ).then((value) => pickedDate = value).then(
+                      (value) {
+                        setState(() {});
+                      },
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.4),
+                          spreadRadius: 1,
+                          blurRadius: 7,
+                          offset: Offset(0, 3),
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(12),
+                      color: Color(0xFF351062),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    height: 40,
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Center(
+                        child: Text(
+                      "Выбрать день",
+                      style: TextStyle(color: Colors.white),
+                    )),
                   )),
-                )),
+            ),
           ),
           Spacer(),
           Center(
