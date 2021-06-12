@@ -30,6 +30,7 @@ dependencies:
   path_provider: 1.6.28
   hive_flutter: 0.3.1
   enum_to_string: 1.0.14
+  decimal: ^1.2.0
 
 
   # The following adds the Cupertino Icons font to your application.
