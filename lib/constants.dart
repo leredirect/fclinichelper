@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/models/baseElement.dart';
 import 'package:fclinick_helper/models/baseList.dart';
-
+final Decimal JAICHKO = Decimal.parse("2");
 final Decimal ARINA_CONSTANT = Decimal.parse("0.52");
 const double JEJ = 7;
 //text
@@ -29,7 +29,7 @@ BaseElement baseElement19 = new BaseElement(19, "Slivki #1 (Приём + кон�
 BaseElement baseElement20 = new BaseElement(20, "Slivki #2 (Приём + консультация+ кольпоскопия)", 49.00, false);
 BaseElement baseElement21 = new BaseElement(21, "Slivki #3 (Приём + консультация+ УЗИ ОМТ+ кольпоскопия)", 65.00, false);
 
-BaseElement baseElement22 = new BaseElement(0, "БЕЗ СТРАХОВКИ", 7, false);
+BaseElement baseElement22 = new BaseElement(0, "БЕЗ СТРАХОВКИ", JEJ, false);
 BaseElement baseElement23 = new BaseElement(1, "Анализ 2", 30, false);
 BaseElement baseElement24 = new BaseElement(2, "Анализ 3", 35, false);
 BaseElement baseElement25 = new BaseElement(3, "Анализ 4", 40, false);
