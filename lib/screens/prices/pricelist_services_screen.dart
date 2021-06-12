@@ -20,7 +20,7 @@ class _PriceListServicesState extends State<PriceListServices> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        bottom: 60,
+        bottom: 87,
       ),
       child: ListView.builder(
           itemCount: baseServices.baseList.length,
