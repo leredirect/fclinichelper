@@ -1,18 +1,16 @@
-import 'package:decimal/decimal.dart';
-import 'package:fclinick_helper/constants.dart';
-import 'package:fclinick_helper/screens/omlette_volume_screen.dart';
-import 'package:fclinick_helper/screens/pricelist_services_screen.dart';
-import 'package:fclinick_helper/screens/svd_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UziScreen extends StatefulWidget {
+import '../../constants.dart';
+import 'omlette_volume_screen.dart';
+import 'svd_screen.dart';
+
+class CalculatorsScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => _UziScreenState();
+  State<StatefulWidget> createState() => _CalculatorsScreenState();
 }
 
-class _UziScreenState extends State<UziScreen> {
-
+class _CalculatorsScreenState extends State<CalculatorsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -20,8 +18,10 @@ class _UziScreenState extends State<UziScreen> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            backgroundColor: primaryColorM[600],
             toolbarHeight: 50,
             title: TabBar(
+              indicatorColor: Colors.white,
               tabs: [
                 Tab(
                   text: "Объем яичника",
@@ -36,8 +36,8 @@ class _UziScreenState extends State<UziScreen> {
             children: [
               TabBarView(
                 children: [
-                  SVDScreen(),
                   OmletteVolumeScreen(),
+                  SVDScreen(),
                 ],
               ),
             ],
