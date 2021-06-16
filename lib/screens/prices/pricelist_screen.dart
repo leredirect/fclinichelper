@@ -41,14 +41,16 @@ class _PriceListState extends State<PriceList> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            backgroundColor: primaryColorM[600],
             toolbarHeight: 50,
             title: TabBar(
+              indicatorColor: Colors.white,
               tabs: [
                 Tab(
-                  text: "Услуги",
+                  text: baseServices.name,
                 ),
                 Tab(
-                  text: "Анализы",
+                  text: baseAnalysis.name,
                 ),
               ],
             ),
@@ -84,23 +86,42 @@ class _PriceListState extends State<PriceList> {
                             textAlign: TextAlign.center,
                           ),
                           TextButton(
-                            onPressed: () {
-                              servicesBase.forEach((element) {
-                                if (element.isActive == true) {
-                                  element.isActive = false;
-                                }
-                              });
+                              onPressed: () {
+                                servicesBase.forEach((element) {
+                                  if (element.isActive == true) {
+                                    element.isActive = false;
+                                  }
+                                });
 
-                              analysisBase.forEach((element) {
-                                if (element.isActive == true) {
-                                  element.isActive = false;
-                                }
-                              });
+                                analysisBase.forEach((element) {
+                                  if (element.isActive == true) {
+                                    element.isActive = false;
+                                  }
+                                });
 
-                              setState(() {});
-                            },
-                            child: Text("Сбросить"),
-                          )
+                                setState(() {});
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.4),
+                                      spreadRadius: 1,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: Color(0xFF351062),
+                                ),
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 30,
+                                child: Center(
+                                    child: Text(
+                                  "Сбросить",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                              ))
                         ],
                       ),
                     ),

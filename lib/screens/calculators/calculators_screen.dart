@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants.dart';
 import 'omlette_volume_screen.dart';
 import 'svd_screen.dart';
 
@@ -17,8 +18,10 @@ class _CalculatorsScreenState extends State<CalculatorsScreen> {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            backgroundColor: primaryColorM[600],
             toolbarHeight: 50,
             title: TabBar(
+              indicatorColor: Colors.white,
               tabs: [
                 Tab(
                   text: "Объем яичника",

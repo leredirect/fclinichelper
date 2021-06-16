@@ -1,13 +1,20 @@
+import 'package:fclinick_helper/bloc/svd_bloc/svd_bloc.dart';
+import 'package:fclinick_helper/constants.dart';
 import 'package:fclinick_helper/screens/calculators/calculators_screen.dart';
 import 'package:fclinick_helper/screens/cycle_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'screens/prices/pricelist_screen.dart';
 
 void main() {
-  runApp(HomeScreen());
+  runApp(MaterialApp(
+    home: HomeScreen(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
 class HomeScreen extends StatefulWidget {
@@ -32,66 +39,137 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
 
-    Map<int, Color> color = {
-      50: Color(0xFFE7E2EC),
-      100: Color(0xFFC2B7D0),
-      200: Color(0xFF9A88B1),
-      300: Color(0xFF725891),
-      400: Color(0xFF53347A),
-      500: Color(0xFF351062),
-      600: Color(0xFF300E5A),
-      700: Color(0xFF280C50),
-      800: Color(0xFF220946),
-      900: Color(0xFF160534),
-    };
+    int cnt = 0;
+    void counter() {
+      cnt = cnt + 1;
+    }
 
-    MaterialColor primary = new MaterialColor(0xFF351062, color);
-
-    return MaterialApp(
-        localizationsDelegates: [
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider<SVDBloc>(create: (context) => SVDBloc()),
+        ],
+        child: MaterialApp(
+            localizationsDelegates: [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
         ],
-        supportedLocales: [
+            supportedLocales: [
           const Locale('en', 'US'),
           const Locale('ru', 'RU'),
         ],
-        theme: ThemeData(primarySwatch: primary),
-        debugShowCheckedModeBanner: false,
-        home: AnnotatedRegion<SystemUiOverlayStyle>(
-          value: SystemUiOverlayStyle.light,
-          child: Scaffold(
-            appBar: AppBar(
-              systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarIconBrightness: Brightness.light,
+            theme: ThemeData(primarySwatch: primaryColorM),
+            debugShowCheckedModeBanner: false,
+            home: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: Scaffold(
+                appBar: AppBar(
+                  systemOverlayStyle: SystemUiOverlayStyle(
+                    statusBarIconBrightness: Brightness.light,
+                  ),
+                  backwardsCompatibility: false,
+                  title: Text("FClinic Helper"),
+                  actions: [
+                    Visibility(
+                      maintainState: true,
+                      maintainAnimation: true,
+                      maintainSize: true,
+                      maintainInteractivity: true,
+                      visible: false,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          splashFactory: NoSplash.splashFactory,
+                        ),
+                        onLongPress: () {
+                          if (cnt == 3) {
+                            counter();
+                            showGeneralDialog(
+                                context: context,
+                                pageBuilder: (context, anim1, anim2) {},
+                                barrierDismissible: true,
+                                barrierLabel: "",
+                                transitionBuilder:
+                                    (context, anim1, anim2, child) {
+                                  return Opacity(
+                                    opacity: anim1.value,
+                                    child: AlertDialog(
+                                      backgroundColor: primaryColor,
+                                      title: const Text('FCLINIC HELPER',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: <Widget>[
+                                            Column(
+                                              children: [
+                                                Text(
+                                                    'Development:\nMikita Kalinovsky (mikitakalinovsky)\n\nManagement:\nViktar Ščors (kelidon)\n\nTesting & design:\nRina Kulaga',
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                                SizedBox(
+                                                  height: 30,
+                                                ),
+                                                Container(
+                                                  child: Text(
+                                                    "©2021, GatovoLabs",
+                                                    style: TextStyle(
+                                                        color: Colors.grey),
+                                                  ),
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          child: Text('Назад',
+                                              style: TextStyle(
+                                                  color: Colors.white)),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                                transitionDuration:
+                                    Duration(milliseconds: 200));
+                          } else {}
+                        },
+                        onPressed: () {
+                          counter();
+                        },
+                        child: null,
+                      ),
+                    )
+                  ],
+                ),
+                body: Center(
+                  child: _elements.elementAt(_currentIndex),
+                ),
+                bottomNavigationBar: BottomNavigationBar(
+                  items: [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.search),
+                      label: "Узи",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.cached),
+                      label: "Цикл",
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.attach_money),
+                      label: "Цена",
+                    ),
+                  ],
+                  backgroundColor: Colors.white,
+                  currentIndex: _currentIndex,
+                  onTap: changeTab,
+                ),
               ),
-              backwardsCompatibility: false,
-              // backgroundColor: Color(0xFF351062),
-              title: Text("FClinic Helper"),
-            ),
-            body: Center(
-              child: _elements.elementAt(_currentIndex),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              items: [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  label: "Узи",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.cached),
-                  label: "Цикл",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.attach_money),
-                  label: "Цена",
-                ),
-              ],
-              backgroundColor: Colors.white,
-              currentIndex: _currentIndex,
-              onTap: changeTab,
-            ),
-          ),
-        ));
+            )));
   }
 }

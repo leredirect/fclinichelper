@@ -36,7 +36,7 @@ class _PriceListServicesState extends State<PriceListServices> {
                       height: 5,
                     ),
                     Text(
-                      "${baseServices.baseList[i].price}",
+                      "${baseServices.baseList[i].price}р.",
                       style: TextStyle(color: Colors.grey),
                     ),
                   ],

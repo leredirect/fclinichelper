@@ -29,13 +29,19 @@ class _PriceListAnalysisState extends State<PriceListAnalysis> {
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(baseAnalysis.baseList[i].name),
+                      Text("${baseAnalysis.baseList[i].name}"),
                       SizedBox(
                         height: 5,
                       ),
-                      Text(
-                        "${baseAnalysis.baseList[i].price}",
-                        style: TextStyle(color: Colors.grey),
+                      Row(
+                        children: [
+                          Text(
+                            "${baseAnalysis.baseList[i].price}р.",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          Text(" ${baseAnalysis.baseList[i].anal}",
+                              style: TextStyle(color: Colors.grey)),
+                        ],
                       ),
                     ],
                   ),

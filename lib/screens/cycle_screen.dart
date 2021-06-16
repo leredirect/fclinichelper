@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class CycleScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _CycleScreenState();
@@ -11,17 +13,31 @@ class _CycleScreenState extends State<CycleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    int pickedDateCalc(DateTime pickedDate) {
-      if (pickedDate != null) {
-        DateTimeRange range =
+    int pickedDateCalc(DateTime pickedDate, {int trigger}) {
+      if (trigger == null) {
+        int result;
+        if (pickedDate == null && cycle.isEmpty) {
+          return null;
+        } else {
+          if (pickedDate != null) {
+            DateTimeRange range =
             new DateTimeRange(start: pickedDate, end: DateTime.now());
-        int result = range.duration.inDays.toInt();
-        return result + 1;
-      } else {
-        return 0;
+            result = range.duration.inDays.toInt();
+            cycle.add(result);
+            if (result != cycle.last) {
+              return result + 1;
+            } else {
+              return cycle.last + 1;
+            }
+          } else if (cycle.isNotEmpty) {
+            return cycle.last + 1;
+          }
+        }
+      }
+     else{
+       return null;
       }
     }
-
     return Scaffold(
       body: Column(
         children: [
@@ -33,7 +49,6 @@ class _CycleScreenState extends State<CycleScreen> {
                   onPressed: () {
                     DateTime now = DateTime.now();
                     var lastDate = now.add(const Duration(days: 0));
-                    var firstDate = now.subtract(const Duration(days: 5));
                     showDatePicker(
                       locale: Locale("ru", "RU"),
                       context: context,
@@ -74,24 +89,60 @@ class _CycleScreenState extends State<CycleScreen> {
           Center(
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
               decoration: BoxDecoration(color: Colors.white, boxShadow: [
                 BoxShadow(
                     color: Colors.black.withOpacity(0.1),
                     spreadRadius: 5,
                     blurRadius: 10)
               ]),
-              child: Text(
-                pickedDate == null
-                    ? "Выберите дату"
-                    : "День цикла: ${pickedDateCalc(pickedDate)}",
-                style: TextStyle(
-                    fontSize: 25,
-                    color: pickedDate == null ? Colors.grey : Colors.black),
-                textAlign: TextAlign.center,
+              child: Column(
+                children: [
+                  Text(
+                    pickedDateCalc(pickedDate) == null
+                        ? "Выберите дату"
+                        : "День цикла: ${pickedDateCalc(pickedDate)}",
+                    style: TextStyle(
+                        fontSize: 25,
+                        color: pickedDateCalc(pickedDate) == null
+                            ? Colors.grey
+                            : Colors.black),
+                    textAlign: TextAlign.center,
+                  ),
+                  TextButton(
+                      onPressed: () {
+                        pickedDate = null;
+                        cycle.clear();
+                        setState(() {
+
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.4),
+                              spreadRadius: 1,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            )
+                          ],
+                          borderRadius: BorderRadius.circular(12),
+                          color: Color(0xFF351062),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        height: 30,
+                        child: Center(
+                            child: Text(
+                              "Сбросить",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ))
+                ],
               ),
             ),
           )
+
         ],
       ),
     );

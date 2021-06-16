@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:fclinick_helper/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SVDScreen extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class _SVDScreenState extends State<SVDScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     Decimal calc() {
       try {
         Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
@@ -26,7 +28,6 @@ class _SVDScreenState extends State<SVDScreen> {
         return Decimal.zero;
       }
     }
-
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -42,16 +43,24 @@ class _SVDScreenState extends State<SVDScreen> {
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                              decoration: InputDecoration(hintText: "мм"),
-                              focusNode: aNode,
-                              controller: _aController,
-                              textInputAction: TextInputAction.next,
-                              onSubmitted: (value) =>
-                                  FocusScope.of(context).requestFocus(bNode),
-                              onChanged: (value) {
-                                setState(() {});
-                              },
+                            child: BlocBuilder(
+                              builder: (context, snapshot) {
+                                return BlocBuilder(
+                                  builder: (context, state) {
+                                    return TextField(
+                                      decoration: InputDecoration(hintText: "мм"),
+                                      focusNode: aNode,
+                                      controller: _aController,
+                                      textInputAction: TextInputAction.next,
+                                      onSubmitted: (value) =>
+                                          FocusScope.of(context).requestFocus(bNode),
+                                      onChanged: (value) {
+                                        setState(() {});
+                                      },
+                                    );
+                                  }
+                                );
+                              }
                             ),
                           ),
                           Container(
