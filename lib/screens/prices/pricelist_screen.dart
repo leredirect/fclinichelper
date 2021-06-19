@@ -1,8 +1,11 @@
 import 'package:decimal/decimal.dart';
-import 'package:fclinick_helper/constants.dart';
-import 'package:fclinick_helper/screens/prices/pricelist_analysis_screen.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_bloc.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_state.dart';
+import 'package:fclinic_helper/constants.dart';
+import 'package:fclinic_helper/screens/prices/pricelist_analysis_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'pricelist_services_screen.dart';
 
@@ -98,7 +101,6 @@ class _PriceListState extends State<PriceList> {
                                     element.isActive = false;
                                   }
                                 });
-
                                 setState(() {});
                               },
                               child: Container(
@@ -126,10 +128,15 @@ class _PriceListState extends State<PriceList> {
                       ),
                     ),
                   ),
+
                 ],
+
               ),
+
             ],
+
           ),
+
         ));
   }
 

@@ -1,12 +1,10 @@
 import 'dart:ui';
 
 import 'package:decimal/decimal.dart';
-import 'package:fclinick_helper/models/baseElement.dart';
-import 'package:fclinick_helper/models/baseList.dart';
-import 'package:fclinick_helper/models/omlette.dart';
+import 'package:fclinic_helper/models/baseElement.dart';
+import 'package:fclinic_helper/models/baseList.dart';
 import 'package:flutter/material.dart';
 
-import 'bloc/svd_bloc/svd_state.dart';
 
 final Decimal JAICHKO = Decimal.parse("2");
 final Decimal ARINA_CONSTANT = Decimal.parse("0.52");
@@ -93,7 +91,6 @@ List<BaseElement> analysisBase = [
   baseElement35,
 ];
 
-List<int> cycle = [];
 BaseList baseServices = new BaseList("Услуги", servicesBase, false);
 BaseList baseAnalysis = new BaseList("Анализы", analysisBase, false);
 

@@ -1,10 +1,11 @@
-import '../cycle_bloc/cycle_state.dart';
 
-class CycleEvent {
+import 'clean_state.dart';
+
+class CleanEvent {
 }
 
-class CycleSaveState extends CycleEvent{
-  CycleState cycle;
+class CleanCleanState extends CleanEvent{
+  CleanState clean;
 
-  CycleSaveState(this.cycle);
+  CleanCleanState(this.clean);
 }

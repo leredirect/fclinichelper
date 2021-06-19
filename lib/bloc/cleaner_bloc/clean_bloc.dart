@@ -1,15 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'cycle_event.dart';
-import 'cycle_state.dart';
+import 'clean_event.dart';
+import 'clean_state.dart';
 
-class CycleBloc extends Bloc<CycleEvent, CycleState> {
-  CycleBloc() : super(CycleState(null));
+class CleanBloc extends Bloc<CleanEvent, CleanState> {
+  CleanBloc() : super(CleanState(null));
 
   @override
-  Stream<CycleState> mapEventToState(event) async*{
-    if(event is CycleSaveState){
-      yield event.cycle;
+  Stream<CleanState> mapEventToState(event) async*{
+    if(event is CleanCleanState){
+      yield event.clean;
     }
   }
 }

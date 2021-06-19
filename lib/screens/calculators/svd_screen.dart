@@ -1,8 +1,15 @@
 import 'package:decimal/decimal.dart';
-import 'package:fclinick_helper/constants.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_bloc.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_event.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_state.dart';
+import 'package:fclinic_helper/bloc/svd_bloc/svd_bloc.dart';
+import 'package:fclinic_helper/bloc/svd_bloc/svd_event.dart';
+import 'package:fclinic_helper/bloc/svd_bloc/svd_state.dart';
+import 'package:fclinic_helper/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 
 class SVDScreen extends StatefulWidget {
   @override
@@ -10,24 +17,25 @@ class SVDScreen extends StatefulWidget {
 }
 
 class _SVDScreenState extends State<SVDScreen> {
-  final _aController = TextEditingController();
-  final _bController = TextEditingController();
+  TextEditingController _aController;
+  TextEditingController _bController;
   FocusNode aNode = FocusNode();
   FocusNode bNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-
     Decimal calc() {
       try {
         Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
         Decimal b = Decimal.parse(_bController.text.replaceAll(",", "."));
+        context.watch<SVDBloc>().add(SVDSaveState(SVDState(a, b)));
         Decimal res = (a * b) / JAICHKO;
         return res;
       } on Exception catch (e) {
         return Decimal.zero;
       }
     }
+
     return GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
@@ -37,47 +45,43 @@ class _SVDScreenState extends State<SVDScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: BlocBuilder(
-                              builder: (context, snapshot) {
-                                return BlocBuilder(
-                                  builder: (context, state) {
-                                    return TextField(
-                                      decoration: InputDecoration(hintText: "мм"),
-                                      focusNode: aNode,
-                                      controller: _aController,
-                                      textInputAction: TextInputAction.next,
-                                      onSubmitted: (value) =>
-                                          FocusScope.of(context).requestFocus(bNode),
-                                      onChanged: (value) {
-                                        setState(() {});
-                                      },
-                                    );
-                                  }
-                                );
-                              }
+                    BlocListener<CleanBloc, CleanState>(
+                      listener: (context, state) { if (state.isClean == true){  _aController.value = TextEditingValue(text: ""); _bController.value = TextEditingValue(text: "");}},
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: TextField(
+                                  decoration: InputDecoration(hintText: "мм"),
+                                  focusNode: aNode,
+                                  controller: _aController,
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  onSubmitted: (value) =>
+                                      FocusScope.of(context).requestFocus(bNode),
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  }),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                              decoration: InputDecoration(hintText: "мм"),
-                              focusNode: bNode,
-                              controller: _bController,
-                              textInputAction: TextInputAction.done,
-                              onSubmitted: (value) =>
-                                  FocusScope.of(context).unfocus(),
-                              onChanged: (value) {
-                                setState(() {});
-                              },
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: TextField(
+                                decoration: InputDecoration(hintText: "мм"),
+                                focusNode: bNode,
+                                controller: _bController,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
+                                onSubmitted: (value) =>
+                                    FocusScope.of(context).unfocus(),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -122,5 +126,11 @@ class _SVDScreenState extends State<SVDScreen> {
   @override
   void initState() {
     super.initState();
+    _aController = TextEditingController();
+    _bController = TextEditingController();
+    _aController.value =
+        TextEditingValue(text: context.read<SVDBloc>().state.field1==null? "": context.read<SVDBloc>().state.field1.toString());
+    _bController.value =
+        TextEditingValue(text: context.read<SVDBloc>().state.field2==null? "": context.read<SVDBloc>().state.field2.toString());
   }
 }

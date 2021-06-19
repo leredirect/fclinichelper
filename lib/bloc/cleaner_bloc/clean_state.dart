@@ -1,8 +1,7 @@
-import 'package:decimal/decimal.dart';
 
-class CycleState {
-int field1;
+class CleanState {
+bool isClean;
 
 
-CycleState(this.field1);
+CleanState(this.isClean);
 }

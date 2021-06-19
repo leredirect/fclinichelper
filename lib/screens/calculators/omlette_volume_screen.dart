@@ -1,7 +1,14 @@
 import 'package:decimal/decimal.dart';
-import 'package:fclinick_helper/constants.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_bloc.dart';
+import 'package:fclinic_helper/bloc/cleaner_bloc/clean_state.dart';
+import 'package:fclinic_helper/bloc/omlette_bloc/omlette_bloc.dart';
+import 'package:fclinic_helper/bloc/omlette_bloc/omlette_event.dart';
+import 'package:fclinic_helper/bloc/omlette_bloc/omlette_state.dart';
+import 'package:fclinic_helper/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OmletteVolumeScreen extends StatefulWidget {
   @override
@@ -9,9 +16,9 @@ class OmletteVolumeScreen extends StatefulWidget {
 }
 
 class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
-  final _aController = TextEditingController();
-  final _bController = TextEditingController();
-  final _cController = TextEditingController();
+  TextEditingController _aController;
+  TextEditingController _bController;
+  TextEditingController _cController;
   FocusNode aNode = FocusNode();
   FocusNode bNode = FocusNode();
   FocusNode cNode = FocusNode();
@@ -23,6 +30,7 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
         Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
         Decimal b = Decimal.parse(_bController.text.replaceAll(",", "."));
         Decimal c = Decimal.parse(_cController.text.replaceAll(",", "."));
+        context.watch<OmletteBloc>().add(OmletteSaveState(OmletteState(a, b, c)));
         Decimal res = (a * b * c) * ARINA_CONSTANT;
         return res;
       } on Exception catch (e) {
@@ -39,53 +47,59 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                              decoration: InputDecoration(hintText: "мм"),
-                              focusNode: aNode,
-                              controller: _aController,
-                              textInputAction: TextInputAction.next,
-                              onSubmitted: (value) =>
-                                  FocusScope.of(context).requestFocus(bNode),
-                              onChanged: (value) {
-                                setState(() {});
-                              },
+                    BlocListener<CleanBloc, CleanState>(
+                      listener: (context, state) { if (state.isClean == true){  _aController.value = TextEditingValue(text: ""); _bController.value = TextEditingValue(text: ""); _cController.value = TextEditingValue(text: "");}},
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: TextField(
+                                decoration: InputDecoration(hintText: "мм"),
+                                focusNode: aNode,
+                                controller: _aController,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.next,
+                                onSubmitted: (value) =>
+                                    FocusScope.of(context).requestFocus(bNode),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                              decoration: InputDecoration(hintText: "мм"),
-                              focusNode: bNode,
-                              controller: _bController,
-                              textInputAction: TextInputAction.next,
-                              onSubmitted: (value) =>
-                                  FocusScope.of(context).requestFocus(cNode),
-                              onChanged: (value) {
-                                setState(() {});
-                              },
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: TextField(
+                                decoration: InputDecoration(hintText: "мм"),
+                                focusNode: bNode,
+                                controller: _bController,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.next,
+                                onSubmitted: (value) =>
+                                    FocusScope.of(context).requestFocus(cNode),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                              ),
                             ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: TextField(
-                              decoration: InputDecoration(hintText: "мм"),
-                              focusNode: cNode,
-                              controller: _cController,
-                              textInputAction: TextInputAction.done,
-                              onSubmitted: (value) =>
-                                  FocusScope.of(context).unfocus(),
-                              onChanged: (value) {
-                                setState(() {});
-                              },
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: TextField(
+                                decoration: InputDecoration(hintText: "мм"),
+                                focusNode: cNode,
+                                controller: _cController,
+                                keyboardType: TextInputType.number,
+                                textInputAction: TextInputAction.done,
+                                onSubmitted: (value) =>
+                                    FocusScope.of(context).unfocus(),
+                                onChanged: (value) {
+                                  setState(() {});
+                                },
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     Container(
@@ -131,5 +145,14 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
   @override
   void initState() {
     super.initState();
+    _aController = TextEditingController();
+    _bController = TextEditingController();
+    _cController = TextEditingController();
+    _aController.value =
+        TextEditingValue(text: context.read<OmletteBloc>().state.field1==null? "": context.read<OmletteBloc>().state.field1.toString());
+    _bController.value =
+        TextEditingValue(text: context.read<OmletteBloc>().state.field2==null? "": context.read<OmletteBloc>().state.field2.toString());
+    _cController.value =
+        TextEditingValue(text: context.read<OmletteBloc>().state.field3==null? "": context.read<OmletteBloc>().state.field3.toString());
   }
 }
