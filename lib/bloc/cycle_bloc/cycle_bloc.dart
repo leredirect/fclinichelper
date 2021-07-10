@@ -4,11 +4,11 @@ import 'cycle_event.dart';
 import 'cycle_state.dart';
 
 class CycleBloc extends Bloc<CycleEvent, CycleState> {
-  CycleBloc() : super(CycleState(null));
+  CycleBloc() : super(CycleState(null, null));
 
   @override
-  Stream<CycleState> mapEventToState(event) async*{
-    if(event is CycleSaveState){
+  Stream<CycleState> mapEventToState(event) async* {
+    if (event is CycleSaveState) {
       yield event.cycle;
     }
   }

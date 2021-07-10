@@ -14,35 +14,38 @@ class _CalculatorsScreenState extends State<CalculatorsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBar(
-            backgroundColor: primaryColorM[600],
-            toolbarHeight: 50,
-            title: TabBar(
-              indicatorColor: Colors.white,
-              tabs: [
-                Tab(
-                  text: "Объем яичника",
-                ),
-                Tab(
-                  text: "СВД",
-                ),
-              ],
-            ),
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: primaryColorM[600],
+          toolbarHeight: 50,
+          title: TabBar(
+            indicatorColor: Colors.white,
+            tabs: [
+              Tab(
+                text: "Объем яичника",
+              ),
+              Tab(
+                text: "СВД",
+              ),
+            ],
           ),
-          body: Stack(
-            children: [
-              TabBarView(
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
                 children: [
                   OmletteVolumeScreen(),
                   SVDScreen(),
                 ],
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override

@@ -1,8 +1,6 @@
-import 'package:decimal/decimal.dart';
-
 class CycleState {
-int field1;
+  int field1;
+  DateTime selectedDay;
 
-
-CycleState(this.field1);
+  CycleState(this.field1, this.selectedDay);
 }

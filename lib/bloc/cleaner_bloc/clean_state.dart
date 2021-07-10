@@ -1,7 +1,5 @@
-
 class CleanState {
-bool isClean;
+  bool isClean;
 
-
-CleanState(this.isClean);
+  CleanState(this.isClean);
 }

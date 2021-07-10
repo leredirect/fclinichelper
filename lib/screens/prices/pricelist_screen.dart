@@ -72,7 +72,7 @@ class _PriceListState extends State<PriceList> {
                   Center(
                     child: Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           boxShadow: [
@@ -81,62 +81,76 @@ class _PriceListState extends State<PriceList> {
                                 spreadRadius: 5,
                                 blurRadius: 10)
                           ]),
-                      child: Column(
+                      child: Row(
                         children: [
-                          Text(
-                            "Результат: ${priceListCalc()}",
-                            style: TextStyle(fontSize: 25),
-                            textAlign: TextAlign.center,
-                          ),
-                          TextButton(
-                              onPressed: () {
-                                servicesBase.forEach((element) {
-                                  if (element.isActive == true) {
-                                    element.isActive = false;
-                                  }
-                                });
+                          IconButton(
+                            onPressed: () {
+                              servicesBase.forEach((element) {
+                                if (element.isActive == true) {
+                                  element.isActive = false;
+                                }
+                              });
 
-                                analysisBase.forEach((element) {
-                                  if (element.isActive == true) {
-                                    element.isActive = false;
+                              analysisBase.forEach((element) {
+                                if (element.isActive == true) {
+                                  element.isActive = false;
+                                }
+                              });
+                              setState(() {});
+                              priceListCalc();
+                            },
+                            icon: Icon(Icons.cancel_outlined,
+                                color: primaryColor),
+                          ),
+                          Expanded(
+                            child: Container(
+                              child: BlocListener<CleanBloc, CleanState>(
+                                listener: (context, state) {
+                                  if (state.isClean == true) {
+                                    servicesBase.forEach((element) {
+                                      if (element.isActive == true) {
+                                        element.isActive = false;
+                                      }
+                                    });
+
+                                    analysisBase.forEach((element) {
+                                      if (element.isActive == true) {
+                                        element.isActive = false;
+                                      }
+                                    });
+                                    setState(() {});
+                                    priceListCalc();
+                                    setState(() {});
                                   }
-                                });
-                                setState(() {});
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.4),
-                                      spreadRadius: 1,
-                                      blurRadius: 7,
-                                      offset: Offset(0, 3),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(12),
-                                  color: Color(0xFF351062),
+                                },
+                                child: Text(
+                                  priceListCalc() == Decimal.zero
+                                      ? "Выберите услугу"
+                                      : "Стоимость: ${priceListCalc()}р.",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      color: priceListCalc() == Decimal.zero
+                                          ? Colors.grey
+                                          : Colors.black),
+                                  textAlign: TextAlign.center,
                                 ),
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height: 30,
-                                child: Center(
-                                    child: Text(
-                                  "Сбросить",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                              ))
+                              ),
+                            ),
+                          ),
+                          IconButton(
+                            enableFeedback: false,
+                            onPressed: () {},
+                            icon:
+                                Icon(Icons.web_asset_off, color: Colors.white),
+                          ),
                         ],
                       ),
                     ),
                   ),
-
                 ],
-
               ),
-
             ],
-
           ),
-
         ));
   }
 

@@ -1,5 +1,8 @@
 name: fclinic_helper
-description: Application for FClinic Ltd.
+description: App for FClinic Ltd.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
 
 publish_to: 'none'
 
@@ -17,6 +20,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_bloc: ^7.0.1
+  animations: ^2.0.0
+  table_calendar: ^3.0.0
+  flutter_svg: ^0.22.0
 
 dev_dependencies:
   flutter_test:
@@ -33,7 +39,13 @@ flutter_icons:
   adaptive_icon_padding: true
 
 flutter:
-
+  fonts:
+    - family: FClinic
+      fonts:
+        - asset: assets/fonts/FClinic.ttf
+  assets:
+    - assets/images/logo.png
+    - assets/images/title.svg
   uses-material-design: true
 
 flutter_native_splash:
@@ -53,3 +65,5 @@ flutter_native_splash:
   #fullscreen: true
   #  - 'ios/Runner/Info-Debug.plist'
   #  - 'ios/Runner/Info-Release.plist'
+#flutter pub run flutter_launcher_icons:main
+#flutter pub run flutter_native_splash:create
