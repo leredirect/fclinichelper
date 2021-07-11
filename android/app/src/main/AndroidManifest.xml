@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gatovolabs.fclinichelper.fclinic_helper">
    <application
-        android:label="fclinic_helper"
+        android:label="FClinic"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
