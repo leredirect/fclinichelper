@@ -23,15 +23,15 @@ class _PriceListServicesState extends State<PriceListServices> {
   Widget build(BuildContext context) {
     return BlocListener<CleanBloc, CleanState>(
       listener: (context, state) {
-        if (state.isClean == true) {
+        if (state.isClean) {
           servicesBase.forEach((element) {
-            if (element.isActive == true) {
+            if (element.isActive) {
               element.isActive = false;
             }
           });
 
           analysisBase.forEach((element) {
-            if (element.isActive == true) {
+            if (element.isActive) {
               element.isActive = false;
             }
           });
@@ -63,9 +63,7 @@ class _PriceListServicesState extends State<PriceListServices> {
                   ),
                   value: baseServices.baseList[i].isActive,
                   onChanged: (bool value) {
-                    setState(() {
-                      baseServices.baseList[i].isActive = value;
-                    });
+                    baseServices.baseList[i].isActive = value;
                     widget.updateScreen();
                   },
                 ),

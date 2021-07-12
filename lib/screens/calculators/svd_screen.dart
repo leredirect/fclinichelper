@@ -27,7 +27,7 @@ class _SVDScreenState extends State<SVDScreen> {
       try {
         Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
         Decimal b = Decimal.parse(_bController.text.replaceAll(",", "."));
-        context.watch<SVDBloc>().add(SVDSaveState(SVDState(a, b)));
+        context.watch<SVDBloc>().add(SVDSaveStateEvent(SVDState(a, b)));
         Decimal res = (a + b) / JAICHKO;
         return res;
       } on Exception catch (e) {
@@ -55,7 +55,7 @@ class _SVDScreenState extends State<SVDScreen> {
                     children: [
                       BlocListener<CleanBloc, CleanState>(
                         listener: (context, state) {
-                          if (state.isClean == true) {
+                          if (state.isClean) {
                             _aController.value = TextEditingValue(text: "");
                             _bController.value = TextEditingValue(text: "");
                           }
@@ -183,8 +183,8 @@ class _SVDScreenState extends State<SVDScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                Provider.of<SVDBloc>(context, listen: false)
-                                    .add(SVDSaveState(SVDState(null, null)));
+                                context.read<SVDBloc>().add(
+                                    SVDSaveStateEvent(SVDState(null, null)));
                                 _aController.value = TextEditingValue(text: "");
                                 _bController.value = TextEditingValue(text: "");
                                 setState(() {});
@@ -196,10 +196,9 @@ class _SVDScreenState extends State<SVDScreen> {
                               child: Container(
                                 child: BlocListener<CleanBloc, CleanState>(
                                   listener: (context, state) {
-                                    if (state.isClean == true) {
-                                      Provider.of<SVDBloc>(context,
-                                              listen: false)
-                                          .add(SVDSaveState(
+                                    if (state.isClean) {
+                                      context.read<SVDBloc>().add(
+                                          SVDSaveStateEvent(
                                               SVDState(null, null)));
                                       setState(() {});
                                     }
@@ -249,12 +248,12 @@ class _SVDScreenState extends State<SVDScreen> {
     _aController = TextEditingController();
     _bController = TextEditingController();
     _aController.value = TextEditingValue(
-        text: context.read<SVDBloc>().state.field1 == null
+        text: context.read<SVDBloc>().state.a == null
             ? ""
-            : context.read<SVDBloc>().state.field1.toString());
+            : context.read<SVDBloc>().state.a.toString());
     _bController.value = TextEditingValue(
-        text: context.read<SVDBloc>().state.field2 == null
+        text: context.read<SVDBloc>().state.b == null
             ? ""
-            : context.read<SVDBloc>().state.field2.toString());
+            : context.read<SVDBloc>().state.b.toString());
   }
 }

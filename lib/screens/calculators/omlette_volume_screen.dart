@@ -32,7 +32,7 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
         Decimal c = Decimal.parse(_cController.text.replaceAll(",", "."));
         context
             .watch<OmletteBloc>()
-            .add(OmletteSaveState(OmletteState(a, b, c)));
+            .add(OmletteSaveStateEvent(OmletteState(a, b, c)));
         Decimal res = (a * b * c) * ARINA_CONSTANT;
         return res;
       } on Exception catch (e) {
@@ -44,179 +44,178 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           body: Container(
+            alignment: Alignment.center,
             child: Column(
               children: [
                 Spacer(),
-                SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.all(30),
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        BlocListener<CleanBloc, CleanState>(
-                          listener: (context, state) {
-                            if (state.isClean == true) {
-                              _aController.value = TextEditingValue(text: "");
-                              _bController.value = TextEditingValue(text: "");
-                              _cController.value = TextEditingValue(text: "");
-                            }
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            spreadRadius: 3,
-                                            blurRadius: 4)
-                                      ]),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: TextField(
-                                    //enabled: false,
-                                    decoration: InputDecoration(
-                                      hintText: "мм",
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                        borderSide: BorderSide(
-                                            width: 2, color: primaryColor),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
+                Container(
+                  padding: EdgeInsets.all(30),
+                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 5,
+                        blurRadius: 10)
+                  ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BlocListener<CleanBloc, CleanState>(
+                        listener: (context, state) {
+                          if (state.isClean) {
+                            _aController.value = TextEditingValue(text: "");
+                            _bController.value = TextEditingValue(text: "");
+                            _cController.value = TextEditingValue(text: "");
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              Colors.black.withOpacity(0.1),
+                                          spreadRadius: 3,
+                                          blurRadius: 4)
+                                    ]),
+                                width:
+                                    MediaQuery.of(context).size.width * 0.7,
+                                child: TextField(
+                                  //enabled: false,
+                                  decoration: InputDecoration(
+                                    hintText: "мм",
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(0)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: primaryColor),
                                     ),
-                                    focusNode: aNode,
-                                    controller: _aController,
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    onSubmitted: (value) =>
-                                        FocusScope.of(context)
-                                            .requestFocus(bNode),
-                                    onChanged: (value) {
-                                      setState(() {});
-                                    },
-                                  ),
-                                ),
-                                Container(
-                                  child: Text(
-                                    "×",
-                                    style: TextStyle(fontSize: 30),
-                                  ),
-                                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            spreadRadius: 3,
-                                            blurRadius: 4)
-                                      ]),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      hintText: "мм",
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                        borderSide: BorderSide(
-                                            width: 2, color: primaryColor),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(0)),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
                                     ),
-                                    focusNode: bNode,
-                                    controller: _bController,
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.next,
-                                    onSubmitted: (value) =>
-                                        FocusScope.of(context)
-                                            .requestFocus(cNode),
-                                    onChanged: (value) {
-                                      setState(() {});
-                                    },
                                   ),
+                                  focusNode: aNode,
+                                  controller: _aController,
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  onSubmitted: (value) =>
+                                      FocusScope.of(context)
+                                          .requestFocus(bNode),
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
                                 ),
-                                Container(
-                                  child: Text(
-                                    "×",
-                                    style: TextStyle(fontSize: 30),
-                                  ),
-                                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                              ),
+                              Container(
+                                child: Text(
+                                  "×",
+                                  style: TextStyle(fontSize: 30),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      boxShadow: [
-                                        BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            spreadRadius: 3,
-                                            blurRadius: 4)
-                                      ]),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.7,
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      hintText: "мм",
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                        borderSide: BorderSide(
-                                            width: 2, color: primaryColor),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(0)),
-                                        borderSide:
-                                            BorderSide(color: Colors.white),
-                                      ),
+                                padding: EdgeInsets.only(top: 10, bottom: 10),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              Colors.black.withOpacity(0.1),
+                                          spreadRadius: 3,
+                                          blurRadius: 4)
+                                    ]),
+                                width:
+                                    MediaQuery.of(context).size.width * 0.7,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: "мм",
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(0)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: primaryColor),
                                     ),
-                                    focusNode: cNode,
-                                    controller: _cController,
-                                    keyboardType: TextInputType.number,
-                                    textInputAction: TextInputAction.done,
-                                    onSubmitted: (value) =>
-                                        FocusScope.of(context).unfocus(),
-                                    onChanged: (value) {
-                                      setState(() {});
-                                    },
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(0)),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
+                                    ),
                                   ),
+                                  focusNode: bNode,
+                                  controller: _bController,
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  onSubmitted: (value) =>
+                                      FocusScope.of(context)
+                                          .requestFocus(cNode),
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
                                 ),
-                              ],
-                            ),
+                              ),
+                              Container(
+                                child: Text(
+                                  "×",
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                padding: EdgeInsets.only(top: 10, bottom: 10),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color:
+                                              Colors.black.withOpacity(0.1),
+                                          spreadRadius: 3,
+                                          blurRadius: 4)
+                                    ]),
+                                width:
+                                    MediaQuery.of(context).size.width * 0.7,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: "мм",
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(0)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: primaryColor),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(0)),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
+                                    ),
+                                  ),
+                                  focusNode: cNode,
+                                  controller: _cController,
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.done,
+                                  onSubmitted: (value) =>
+                                      FocusScope.of(context).unfocus(),
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        Container(
-                            padding: EdgeInsets.all(20),
-                            child: Text(
-                              "×$ARINA_CONSTANT",
-                              style: TextStyle(fontSize: 30),
-                            ))
-                      ],
-                    ),
+                      ),
+                      Container(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            "×$ARINA_CONSTANT",
+                            style: TextStyle(fontSize: 30),
+                          ))
+                    ],
                   ),
                 ),
                 Spacer(),
@@ -243,8 +242,8 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                           children: [
                             IconButton(
                               onPressed: () {
-                                Provider.of<OmletteBloc>(context, listen: false)
-                                    .add(OmletteSaveState(
+                                context.read<OmletteBloc>().add(
+                                    OmletteSaveStateEvent(
                                         OmletteState(null, null, null)));
                                 _aController.value = TextEditingValue(text: "");
                                 _bController.value = TextEditingValue(text: "");
@@ -259,10 +258,9 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                               child: Container(
                                 child: BlocListener<CleanBloc, CleanState>(
                                   listener: (context, state) {
-                                    if (state.isClean == true) {
-                                      Provider.of<OmletteBloc>(context,
-                                              listen: false)
-                                          .add(OmletteSaveState(
+                                    if (state.isClean) {
+                                      context.read<OmletteBloc>().add(
+                                          OmletteSaveStateEvent(
                                               OmletteState(null, null, null)));
                                       setState(() {});
                                     }
@@ -314,16 +312,16 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
     _bController = TextEditingController();
     _cController = TextEditingController();
     _aController.value = TextEditingValue(
-        text: context.read<OmletteBloc>().state.field1 == null
+        text: context.read<OmletteBloc>().state.a == null
             ? ""
-            : context.read<OmletteBloc>().state.field1.toString());
+            : context.read<OmletteBloc>().state.a.toString());
     _bController.value = TextEditingValue(
-        text: context.read<OmletteBloc>().state.field2 == null
+        text: context.read<OmletteBloc>().state.b == null
             ? ""
-            : context.read<OmletteBloc>().state.field2.toString());
+            : context.read<OmletteBloc>().state.b.toString());
     _cController.value = TextEditingValue(
-        text: context.read<OmletteBloc>().state.field3 == null
+        text: context.read<OmletteBloc>().state.c == null
             ? ""
-            : context.read<OmletteBloc>().state.field3.toString());
+            : context.read<OmletteBloc>().state.c.toString());
   }
 }

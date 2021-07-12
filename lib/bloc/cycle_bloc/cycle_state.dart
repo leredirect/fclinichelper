@@ -1,6 +1,6 @@
 class CycleState {
-  int field1;
+  int period;
   DateTime selectedDay;
 
-  CycleState(this.field1, this.selectedDay);
+  CycleState(this.period, this.selectedDay);
 }

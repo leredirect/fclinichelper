@@ -8,7 +8,7 @@ class OmletteBloc extends Bloc<OmletteEvent, OmletteState> {
 
   @override
   Stream<OmletteState> mapEventToState(event) async* {
-    if (event is OmletteSaveState) {
+    if (event is OmletteSaveStateEvent) {
       yield event.omlette;
     }
   }

@@ -71,25 +71,25 @@ class _HomeScreenState extends State<HomeScreen> {
       switch (value) {
         case 'Сбросить все':
           servicesBase.forEach((element) {
-            if (element.isActive == true) {
+            if (element.isActive) {
               element.isActive = false;
             }
           });
 
           analysisBase.forEach((element) {
-            if (element.isActive == true) {
+            if (element.isActive) {
               element.isActive = false;
             }
           });
 
-          Provider.of<CycleBloc>(context, listen: false)
-              .add(CycleSaveState(CycleState(null, null)));
-          Provider.of<SVDBloc>(context, listen: false)
-              .add(SVDSaveState(SVDState(null, null)));
-          Provider.of<OmletteBloc>(context, listen: false)
-              .add(OmletteSaveState(OmletteState(null, null, null)));
-          Provider.of<CleanBloc>(context, listen: false)
-              .add(CleanCleanState(CleanState(true)));
+          context
+              .read<CycleBloc>()
+              .add(CycleSaveStateEvent(CycleState(null, null)));
+          context.read<SVDBloc>().add(SVDSaveStateEvent(SVDState(null, null)));
+          context
+              .read<OmletteBloc>()
+              .add(OmletteSaveStateEvent(OmletteState(null, null, null)));
+          context.read<CleanBloc>().add(CleanCleanStateEvent(CleanState(true)));
           break;
       }
     }

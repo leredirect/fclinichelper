@@ -8,7 +8,7 @@ class CycleBloc extends Bloc<CycleEvent, CycleState> {
 
   @override
   Stream<CycleState> mapEventToState(event) async* {
-    if (event is CycleSaveState) {
+    if (event is CycleSaveStateEvent) {
       yield event.cycle;
     }
   }

@@ -33,17 +33,17 @@ class _CycleScreenState extends State<CycleScreen> {
           result = range.duration.inDays.toInt() + 1;
           context
               .watch<CycleBloc>()
-              .add(CycleSaveState(CycleState(result, _selectedDay)));
+              .add(CycleSaveStateEvent(CycleState(result, _selectedDay)));
           return result;
         } else if (pickedDate.day == DateTime.now().day) {
           return 1;
-        } else if (context.read<CycleBloc>().state.field1 != null) {
-          return context.read<CycleBloc>().state.field1;
+        } else if (context.read<CycleBloc>().state.period != null) {
+          return context.read<CycleBloc>().state.period;
         } else {
           return null;
         }
-      } else if (context.read<CycleBloc>().state.field1 != null) {
-        return context.read<CycleBloc>().state.field1;
+      } else if (context.read<CycleBloc>().state.period != null) {
+        return context.read<CycleBloc>().state.period;
       } else {
         return null;
       }
@@ -81,10 +81,10 @@ class _CycleScreenState extends State<CycleScreen> {
                     _selectedDay = selectedDay;
                     pickedDate = selectedDay;
                     _focusedDay = focusedDay;
-                    Provider.of<CycleBloc>(context, listen: false)
-                        .add(CycleSaveState(CycleState(null, null)));
-                    //context.watch<CycleBloc>().add(CycleSaveState(CycleState(null, _selectedDay)));
                   });
+                  context
+                      .read<CycleBloc>()
+                      .add(CycleSaveStateEvent(CycleState(null, _selectedDay)));
                 }
               },
               onFormatChanged: (format) {},
@@ -110,10 +110,13 @@ class _CycleScreenState extends State<CycleScreen> {
                     onPressed: () {
                       pickedDate = null;
                       _selectedDay = null;
-                      Provider.of<CycleBloc>(context, listen: false)
-                          .add(CycleSaveState(CycleState(null, null)));
-                      result = 0;
-                      setState(() {});
+                      context
+                          .read<CycleBloc>()
+                          .add(CycleSaveStateEvent(CycleState(null, null)));
+
+                      setState(() {
+                        result = 0;
+                      });
                     },
                     icon: Icon(Icons.cancel_outlined, color: primaryColor),
                   ),
@@ -121,11 +124,11 @@ class _CycleScreenState extends State<CycleScreen> {
                     child: Container(
                       child: BlocListener<CleanBloc, CleanState>(
                         listener: (context, state) {
-                          if (state.isClean == true) {
+                          if (state.isClean) {
                             pickedDate = null;
                             _selectedDay = null;
-                            Provider.of<CycleBloc>(context, listen: false)
-                                .add(CycleSaveState(CycleState(null, null)));
+                            context.read<CycleBloc>().add(
+                                CycleSaveStateEvent(CycleState(null, null)));
                             setState(() {});
                           }
                         },
@@ -160,8 +163,7 @@ class _CycleScreenState extends State<CycleScreen> {
   @override
   void initState() {
     super.initState();
-    _selectedDay = context.read<CycleBloc>().state.selectedDay == null
-        ? DateTime.now()
-        : context.read<CycleBloc>().state.selectedDay;
+    _selectedDay =
+        context.read<CycleBloc>().state.selectedDay ??= DateTime.now();
   }
 }

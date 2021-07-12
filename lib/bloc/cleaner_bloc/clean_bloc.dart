@@ -8,7 +8,7 @@ class CleanBloc extends Bloc<CleanEvent, CleanState> {
 
   @override
   Stream<CleanState> mapEventToState(event) async* {
-    if (event is CleanCleanState) {
+    if (event is CleanCleanStateEvent) {
       yield event.clean;
     }
   }

@@ -20,15 +20,15 @@ class _PriceListAnalysisState extends State<PriceListAnalysis> {
   Widget build(BuildContext context) {
     return BlocListener<CleanBloc, CleanState>(
       listener: (context, state) {
-        if (state.isClean == true) {
+        if (state.isClean) {
           servicesBase.forEach((element) {
-            if (element.isActive == true) {
+            if (element.isActive) {
               element.isActive = false;
             }
           });
 
           analysisBase.forEach((element) {
-            if (element.isActive == true) {
+            if (element.isActive) {
               element.isActive = false;
             }
           });

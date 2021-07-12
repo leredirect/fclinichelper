@@ -7,7 +7,7 @@ class SVDBloc extends Bloc<SVDEvent, SVDState> {
 
   @override
   Stream<SVDState> mapEventToState(event) async* {
-    if (event is SVDSaveState) {
+    if (event is SVDSaveStateEvent) {
       yield event.svd;
     }
   }

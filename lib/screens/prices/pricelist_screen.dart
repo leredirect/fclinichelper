@@ -19,13 +19,13 @@ class _PriceListState extends State<PriceList> {
     Decimal resultServices = Decimal.parse("0.0");
     Decimal resultAnalysis = Decimal.parse("0.0");
     servicesBase.forEach((element) {
-      if (element.isActive == true) {
+      if (element.isActive) {
         resultServices =
             resultServices + Decimal.parse(element.price.toString());
       }
     });
     analysisBase.forEach((element) {
-      if (element.isActive == true) {
+      if (element.isActive) {
         resultAnalysis =
             resultAnalysis + Decimal.parse(element.price.toString());
       }
@@ -86,13 +86,13 @@ class _PriceListState extends State<PriceList> {
                           IconButton(
                             onPressed: () {
                               servicesBase.forEach((element) {
-                                if (element.isActive == true) {
+                                if (element.isActive) {
                                   element.isActive = false;
                                 }
                               });
 
                               analysisBase.forEach((element) {
-                                if (element.isActive == true) {
+                                if (element.isActive) {
                                   element.isActive = false;
                                 }
                               });
@@ -106,19 +106,18 @@ class _PriceListState extends State<PriceList> {
                             child: Container(
                               child: BlocListener<CleanBloc, CleanState>(
                                 listener: (context, state) {
-                                  if (state.isClean == true) {
+                                  if (state.isClean) {
                                     servicesBase.forEach((element) {
-                                      if (element.isActive == true) {
+                                      if (element.isActive) {
                                         element.isActive = false;
                                       }
                                     });
 
                                     analysisBase.forEach((element) {
-                                      if (element.isActive == true) {
+                                      if (element.isActive) {
                                         element.isActive = false;
                                       }
                                     });
-                                    setState(() {});
                                     priceListCalc();
                                     setState(() {});
                                   }
