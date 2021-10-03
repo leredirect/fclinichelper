@@ -76,26 +76,24 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                          color:
-                                              Colors.black.withOpacity(0.1),
+                                          color: Colors.black.withOpacity(0.1),
                                           spreadRadius: 3,
                                           blurRadius: 4)
                                     ]),
-                                width:
-                                    MediaQuery.of(context).size.width * 0.7,
+                                width: MediaQuery.of(context).size.width * 0.7,
                                 child: TextField(
                                   //enabled: false,
                                   decoration: InputDecoration(
                                     hintText: "мм",
                                     focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(0)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
                                       borderSide: BorderSide(
                                           width: 2, color: primaryColor),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(0)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
                                       borderSide:
                                           BorderSide(color: Colors.white),
                                     ),
@@ -104,9 +102,8 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                                   controller: _aController,
                                   keyboardType: TextInputType.number,
                                   textInputAction: TextInputAction.next,
-                                  onSubmitted: (value) =>
-                                      FocusScope.of(context)
-                                          .requestFocus(bNode),
+                                  onSubmitted: (value) => FocusScope.of(context)
+                                      .requestFocus(bNode),
                                   onChanged: (value) {
                                     setState(() {});
                                   },
@@ -124,25 +121,23 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                          color:
-                                              Colors.black.withOpacity(0.1),
+                                          color: Colors.black.withOpacity(0.1),
                                           spreadRadius: 3,
                                           blurRadius: 4)
                                     ]),
-                                width:
-                                    MediaQuery.of(context).size.width * 0.7,
+                                width: MediaQuery.of(context).size.width * 0.7,
                                 child: TextField(
                                   decoration: InputDecoration(
                                     hintText: "мм",
                                     focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(0)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
                                       borderSide: BorderSide(
                                           width: 2, color: primaryColor),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(0)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
                                       borderSide:
                                           BorderSide(color: Colors.white),
                                     ),
@@ -151,9 +146,8 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                                   controller: _bController,
                                   keyboardType: TextInputType.number,
                                   textInputAction: TextInputAction.next,
-                                  onSubmitted: (value) =>
-                                      FocusScope.of(context)
-                                          .requestFocus(cNode),
+                                  onSubmitted: (value) => FocusScope.of(context)
+                                      .requestFocus(cNode),
                                   onChanged: (value) {
                                     setState(() {});
                                   },
@@ -171,25 +165,23 @@ class _OmletteVolumeScreenState extends State<OmletteVolumeScreen> {
                                     color: Colors.white,
                                     boxShadow: [
                                       BoxShadow(
-                                          color:
-                                              Colors.black.withOpacity(0.1),
+                                          color: Colors.black.withOpacity(0.1),
                                           spreadRadius: 3,
                                           blurRadius: 4)
                                     ]),
-                                width:
-                                    MediaQuery.of(context).size.width * 0.7,
+                                width: MediaQuery.of(context).size.width * 0.7,
                                 child: TextField(
                                   decoration: InputDecoration(
                                     hintText: "мм",
                                     focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(0)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
                                       borderSide: BorderSide(
                                           width: 2, color: primaryColor),
                                     ),
                                     enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(0)),
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
                                       borderSide:
                                           BorderSide(color: Colors.white),
                                     ),

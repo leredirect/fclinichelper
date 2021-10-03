@@ -18,7 +18,7 @@ class CycleScreen extends StatefulWidget {
 class _CycleScreenState extends State<CycleScreen> {
   DateTime pickedDate;
   DateTime lastDay = DateTime.now().add(const Duration(days: 0));
-  DateTime firstDay = DateTime.now().subtract(const Duration(days: 365));
+  DateTime firstDay = DateTime.now().subtract(const Duration(days: 364));
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay;
   int result;
@@ -35,13 +35,19 @@ class _CycleScreenState extends State<CycleScreen> {
               .watch<CycleBloc>()
               .add(CycleSaveStateEvent(CycleState(result, _selectedDay)));
           return result;
-        } else if (pickedDate.day == DateTime.now().day) {
+        } else if (pickedDate.day == DateTime.now().day &&
+            pickedDate.month == DateTime.now().month) {
           return 1;
         } else if (context.read<CycleBloc>().state.period != null) {
           return context.read<CycleBloc>().state.period;
-        } else {
-          return null;
         }
+        DateTimeRange range =
+            new DateTimeRange(start: pickedDate, end: DateTime.now());
+        result = range.duration.inDays.toInt() + 1;
+        context
+            .watch<CycleBloc>()
+            .add(CycleSaveStateEvent(CycleState(result, _selectedDay)));
+        return result;
       } else if (context.read<CycleBloc>().state.period != null) {
         return context.read<CycleBloc>().state.period;
       } else {

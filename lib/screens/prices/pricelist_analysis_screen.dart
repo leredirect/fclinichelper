@@ -32,7 +32,6 @@ class _PriceListAnalysisState extends State<PriceListAnalysis> {
               element.isActive = false;
             }
           });
-          setState(() {});
         }
       },
       child: Container(

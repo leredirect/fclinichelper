@@ -62,8 +62,12 @@ class _PriceListState extends State<PriceList> {
             children: [
               TabBarView(
                 children: [
-                  PriceListServices(updateScreen: updateScreen),
-                  PriceListAnalysis(updateScreen: updateScreen),
+                  PriceListServices(
+                    updateScreen: updateScreen,
+                  ),
+                  PriceListAnalysis(
+                    updateScreen: updateScreen,
+                  ),
                 ],
               ),
               Column(

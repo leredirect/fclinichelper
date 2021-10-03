@@ -12,6 +12,7 @@ import 'package:fclinic_helper/constants.dart';
 import 'package:fclinic_helper/f_clinic_icons.dart';
 import 'package:fclinic_helper/screens/calculators/calculators_screen.dart';
 import 'package:fclinic_helper/screens/cycle_screen.dart';
+import 'package:fclinic_helper/screens/ticker_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,9 @@ import 'bloc/omlette_bloc/omlette_event.dart';
 import 'bloc/omlette_bloc/omlette_state.dart';
 import 'bloc/svd_bloc/svd_event.dart';
 import 'bloc/svd_bloc/svd_state.dart';
+import 'bloc/ticker_bloc/ticker_bloc.dart';
+import 'bloc/ticker_bloc/ticker_event.dart';
+import 'bloc/ticker_bloc/ticker_state.dart';
 import 'screens/prices/pricelist_screen.dart';
 
 void main() {
@@ -36,6 +40,7 @@ void main() {
           BlocProvider<SVDBloc>(create: (context) => SVDBloc()),
           BlocProvider<OmletteBloc>(create: (context) => OmletteBloc()),
           BlocProvider<CycleBloc>(create: (context) => CycleBloc()),
+          BlocProvider<TickerBloc>(create: (context) => TickerBloc()),
           BlocProvider<CleanBloc>(create: (context) => CleanBloc()),
         ],
         child: MaterialApp(
@@ -59,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       CalculatorsScreen(),
       CycleScreen(),
       PriceList(),
+      TickerScreen(),
     ];
 
     void changeTab(int index) {
@@ -87,9 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
               .add(CycleSaveStateEvent(CycleState(null, null)));
           context.read<SVDBloc>().add(SVDSaveStateEvent(SVDState(null, null)));
           context
+              .read<TickerBloc>()
+              .add(TickerSaveStateEvent(TickerState(null, null)));
+          context
               .read<OmletteBloc>()
               .add(OmletteSaveStateEvent(OmletteState(null, null, null)));
           context.read<CleanBloc>().add(CleanCleanStateEvent(CleanState(true)));
+
           break;
       }
     }
@@ -117,7 +127,6 @@ class _HomeScreenState extends State<HomeScreen> {
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarIconBrightness: Brightness.light,
               ),
-              backwardsCompatibility: false,
               title: SvgPicture.asset(
                 'assets/images/title.svg',
                 fit: BoxFit.contain,
@@ -241,27 +250,56 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: _elements.elementAt(_currentIndex),
             ),
-            bottomNavigationBar: BottomNavigationBar(
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              items: [
-                BottomNavigationBarItem(
-                  icon: RotatedBox(
-                      quarterTurns: 2, child: Icon(FClinic.uzzi, size: 27)),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.cached, size: 27),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.list_alt, size: 27),
-                  label: "",
-                ),
-              ],
-              backgroundColor: Colors.white,
-              currentIndex: _currentIndex,
-              onTap: changeTab,
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    offset: Offset(-10, 0),
+                    spreadRadius: 2,
+                    blurRadius: 5)
+              ]),
+              child: BottomNavigationBar(
+                selectedItemColor: primaryColor,
+                unselectedItemColor: Colors.grey,
+                backgroundColor: Colors.white,
+                enableFeedback: true,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: RotatedBox(
+                        quarterTurns: 2,
+                        child: Icon(
+                          FClinic.uzzi,
+                          size: 27,
+                        )),
+                    label: "",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.cached,
+                      size: 27,
+                    ),
+                    label: "",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.list_alt,
+                      size: 27,
+                    ),
+                    label: "",
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(
+                      Icons.timer,
+                      size: 27,
+                    ),
+                    label: "",
+                  ),
+                ],
+                currentIndex: _currentIndex,
+                onTap: changeTab,
+              ),
             ),
           ),
         ));

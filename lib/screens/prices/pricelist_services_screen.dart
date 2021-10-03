@@ -63,7 +63,9 @@ class _PriceListServicesState extends State<PriceListServices> {
                   ),
                   value: baseServices.baseList[i].isActive,
                   onChanged: (bool value) {
-                    baseServices.baseList[i].isActive = value;
+                    setState(() {
+                      baseServices.baseList[i].isActive = value;
+                    });
                     widget.updateScreen();
                   },
                 ),
