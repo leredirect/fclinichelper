@@ -1,6 +1,5 @@
 import 'package:decimal/decimal.dart';
 import 'package:fclinic_helper/bloc/cleaner_bloc/clean_bloc.dart';
-import 'package:fclinic_helper/bloc/cleaner_bloc/clean_event.dart';
 import 'package:fclinic_helper/bloc/cleaner_bloc/clean_state.dart';
 import 'package:fclinic_helper/bloc/svd_bloc/svd_bloc.dart';
 import 'package:fclinic_helper/bloc/svd_bloc/svd_event.dart';
@@ -28,8 +27,8 @@ class _SVDScreenState extends State<SVDScreen> {
       try {
         Decimal a = Decimal.parse(_aController.text.replaceAll(",", "."));
         Decimal b = Decimal.parse(_bController.text.replaceAll(",", "."));
-        context.watch<SVDBloc>().add(SVDSaveState(SVDState(a, b)));
-        Decimal res = (a * b) / JAICHKO;
+        context.watch<SVDBloc>().add(SVDSaveStateEvent(SVDState(a, b)));
+        Decimal res = (a + b) / JAICHKO;
         return res;
       } on Exception catch (e) {
         return Decimal.zero;
@@ -42,72 +41,192 @@ class _SVDScreenState extends State<SVDScreen> {
           body: Container(
             child: Column(
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    BlocListener<CleanBloc, CleanState>(
-                      listener: (context, state) { if (state.isClean == true){  _aController.value = TextEditingValue(text: ""); _bController.value = TextEditingValue(text: "");}},
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: TextField(
-                                  decoration: InputDecoration(hintText: "мм"),
+                Spacer(),
+                Container(
+                  padding: EdgeInsets.all(30),
+                  decoration: BoxDecoration(color: Colors.white, boxShadow: [
+                    BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 5,
+                        blurRadius: 10)
+                  ]),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BlocListener<CleanBloc, CleanState>(
+                        listener: (context, state) {
+                          if (state.isClean) {
+                            _aController.value = TextEditingValue(text: "");
+                            _bController.value = TextEditingValue(text: "");
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 3,
+                                          blurRadius: 4)
+                                    ]),
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: TextField(
+                                  //enabled: false,
+                                  decoration: InputDecoration(
+                                    hintText: "мм",
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: primaryColor),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
+                                    ),
+                                  ),
                                   focusNode: aNode,
                                   controller: _aController,
                                   keyboardType: TextInputType.number,
                                   textInputAction: TextInputAction.next,
-                                  onSubmitted: (value) =>
-                                      FocusScope.of(context).requestFocus(bNode),
+                                  onSubmitted: (value) => FocusScope.of(context)
+                                      .requestFocus(bNode),
                                   onChanged: (value) {
                                     setState(() {});
-                                  }),
-                            ),
-                            Container(
-                              width: MediaQuery.of(context).size.width * 0.5,
-                              child: TextField(
-                                decoration: InputDecoration(hintText: "мм"),
-                                focusNode: bNode,
-                                controller: _bController,
-                                keyboardType: TextInputType.number,
-                                textInputAction: TextInputAction.done,
-                                onSubmitted: (value) =>
-                                    FocusScope.of(context).unfocus(),
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
+                                  },
+                                ),
                               ),
+                              Container(
+                                child: Text(
+                                  "+",
+                                  style: TextStyle(fontSize: 30),
+                                ),
+                                padding: EdgeInsets.only(top: 10, bottom: 10),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.black.withOpacity(0.1),
+                                          spreadRadius: 3,
+                                          blurRadius: 4)
+                                    ]),
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: TextField(
+                                  decoration: InputDecoration(
+                                    hintText: "мм",
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
+                                      borderSide: BorderSide(
+                                          width: 2, color: primaryColor),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(0)),
+                                      borderSide:
+                                          BorderSide(color: Colors.white),
+                                    ),
+                                  ),
+                                  focusNode: bNode,
+                                  controller: _bController,
+                                  keyboardType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  onSubmitted: (value) =>
+                                      FocusScope.of(context).unfocus(),
+                                  onChanged: (value) {
+                                    setState(() {});
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                          padding: EdgeInsets.all(20),
+                          child: Text(
+                            "÷$JAICHKO",
+                            style: TextStyle(fontSize: 30),
+                          ))
+                    ],
+                  ),
+                ),
+                Spacer(),
+                Center(
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        decoration:
+                            BoxDecoration(color: Colors.white, boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              offset: Offset(-10, 0),
+                              spreadRadius: 5,
+                              blurRadius: 10)
+                        ]),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        color: Colors.white,
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                context.read<SVDBloc>().add(
+                                    SVDSaveStateEvent(SVDState(null, null)));
+                                _aController.value = TextEditingValue(text: "");
+                                _bController.value = TextEditingValue(text: "");
+                                setState(() {});
+                              },
+                              icon: Icon(Icons.cancel_outlined,
+                                  color: primaryColor),
+                            ),
+                            Expanded(
+                              child: Container(
+                                child: BlocListener<CleanBloc, CleanState>(
+                                  listener: (context, state) {
+                                    if (state.isClean) {
+                                      context.read<SVDBloc>().add(
+                                          SVDSaveStateEvent(
+                                              SVDState(null, null)));
+                                      setState(() {});
+                                    }
+                                  },
+                                  child: Text(
+                                    calc() != Decimal.zero
+                                        ? "Результат: ${calc()}"
+                                        : "Заполните поля",
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        color: calc() != Decimal.zero
+                                            ? Colors.black
+                                            : Colors.grey),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              enableFeedback: false,
+                              onPressed: () {},
+                              icon: Icon(Icons.web_asset_off,
+                                  color: Colors.white),
                             ),
                           ],
                         ),
                       ),
-                    ),
-                    Container(
-                        padding: EdgeInsets.all(20),
-                        child: Text(
-                          "÷$JAICHKO",
-                          style: TextStyle(fontSize: 30),
-                        ))
-                  ],
-                ),
-                Spacer(),
-                Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-                    decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          spreadRadius: 5,
-                          blurRadius: 10)
-                    ]),
-                    child: Text(
-                      "Результат: ${calc()}",
-                      style: TextStyle(fontSize: 25),
-                      textAlign: TextAlign.center,
-                    ),
+                    ],
                   ),
                 ),
               ],
@@ -128,9 +247,13 @@ class _SVDScreenState extends State<SVDScreen> {
     super.initState();
     _aController = TextEditingController();
     _bController = TextEditingController();
-    _aController.value =
-        TextEditingValue(text: context.read<SVDBloc>().state.field1==null? "": context.read<SVDBloc>().state.field1.toString());
-    _bController.value =
-        TextEditingValue(text: context.read<SVDBloc>().state.field2==null? "": context.read<SVDBloc>().state.field2.toString());
+    _aController.value = TextEditingValue(
+        text: context.read<SVDBloc>().state.a == null
+            ? ""
+            : context.read<SVDBloc>().state.a.toString());
+    _bController.value = TextEditingValue(
+        text: context.read<SVDBloc>().state.b == null
+            ? ""
+            : context.read<SVDBloc>().state.b.toString());
   }
 }

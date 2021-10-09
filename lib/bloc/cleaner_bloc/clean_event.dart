@@ -1,11 +1,9 @@
-
 import 'clean_state.dart';
 
-class CleanEvent {
-}
+class CleanEvent {}
 
-class CleanCleanState extends CleanEvent{
+class CleanCleanStateEvent extends CleanEvent {
   CleanState clean;
 
-  CleanCleanState(this.clean);
+  CleanCleanStateEvent(this.clean);
 }

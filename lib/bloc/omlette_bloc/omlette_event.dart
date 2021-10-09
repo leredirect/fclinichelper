@@ -1,8 +1,9 @@
 import 'omlette_state.dart';
 
 class OmletteEvent {}
-class OmletteSaveState extends OmletteEvent{
+
+class OmletteSaveStateEvent extends OmletteEvent {
   OmletteState omlette;
 
-  OmletteSaveState(this.omlette);
+  OmletteSaveStateEvent(this.omlette);
 }
